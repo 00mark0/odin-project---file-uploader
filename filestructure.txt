@@ -1,0 +1,37 @@
+|-- backend
+    |-- .env
+    |-- .gitignore
+    |-- controllers
+        |-- AdminController.js
+        |-- AuthController.js
+        |-- FileController.js
+        |-- FolderController.js
+        |-- UserController.js
+    |-- middleware
+        |-- AuthMiddleware.js
+        |-- ErrorHandler.js
+    |-- package-lock.json
+    |-- package.json
+    |-- prisma
+        |-- migrations
+            |-- 20240920142126_init
+                |-- migration.sql
+            |-- 20240920145958_add_username
+                |-- migration.sql
+            |-- migration_lock.toml
+        |-- schema.prisma
+    |-- routes
+        |-- admin.js
+        |-- auth.js
+        |-- files.js
+        |-- folders.js
+        |-- user.js
+    |-- server.js
+    |-- uploads
+        |-- 02a62367c4dc2fcdc98fca7086efca47
+        |-- 191c796f0b84f28b42524e6129e11437
+        |-- ad8587d6d220ccb747072a60033bb238
+        |-- b54ba07ed7c24120bd9d8e589e56ce71
+        |-- dbec790dcc540a73526b4280e1625b89
+|-- frontend
+|-- postman_test.txt
