@@ -1,6 +1,28 @@
+|-- admin
+    |-- .eslintrc.cjs
+    |-- .gitignore
+    |-- index.html
+    |-- package-lock.json
+    |-- package.json
+    |-- postcss.config.js
+    |-- src
+        |-- App.css
+        |-- App.jsx
+        |-- api
+            |-- axios.js
+        |-- index.css
+        |-- main.jsx
+        |-- pages
+            |-- LoginPage.jsx
+            |-- UserDetailsPage.jsx
+            |-- UsersPage.jsx
+    |-- tailwind.config.js
+    |-- vite.config.js
 |-- backend
     |-- .env
     |-- .gitignore
+    |-- config
+        |-- cloudinary.js
     |-- controllers
         |-- AdminController.js
         |-- AuthController.js
@@ -28,16 +50,17 @@
         |-- user.js
     |-- server.js
     |-- uploads
-        |-- 02a62367c4dc2fcdc98fca7086efca47
-        |-- 191c796f0b84f28b42524e6129e11437
-        |-- ad8587d6d220ccb747072a60033bb238
-        |-- b54ba07ed7c24120bd9d8e589e56ce71
-        |-- dbec790dcc540a73526b4280e1625b89
 |-- frontend
-c2fcdc98fca7086efca47
-        |-- 191c796f0b84f28b42524e6129e11437
-        |-- ad8587d6d220ccb747072a60033bb238
-        |-- b54ba07ed7c24120bd9d8e589e56ce71
-        |-- dbec790dcc540a73526b4280e1625b89
-|-- frontend
-|-- postman_test.txt
+    |-- .eslintrc.cjs
+    |-- .gitignore
+    |-- index.html
+    |-- package-lock.json
+    |-- package.json
+    |-- postcss.config.js
+    |-- src
+        |-- App.css
+        |-- App.jsx
+        |-- index.css
+        |-- main.jsx
+    |-- tailwind.config.js
+    |-- vite.config.js

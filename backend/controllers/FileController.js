@@ -1,9 +1,21 @@
 import { PrismaClient } from "@prisma/client";
 import multer from "multer";
-import path from "path";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import cloudinary from "../config/cloudinary.js";
+import axios from "axios"; // Import axios
 
 const prisma = new PrismaClient();
-const upload = multer({ dest: "uploads/" });
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "uploads",
+    resource_type: "auto", // Automatically detect the file type
+    public_id: (req, file) => file.originalname,
+  },
+});
+
+const upload = multer({ storage: storage });
 
 export const uploadFile = async (req, res, next) => {
   try {
@@ -14,6 +26,8 @@ export const uploadFile = async (req, res, next) => {
     if (!file) {
       return res.status(400).json({ message: "No file uploaded" });
     }
+
+    console.log("File details:", file);
 
     let folderIdToUse = folderId ? parseInt(folderId) : null;
 
@@ -31,7 +45,7 @@ export const uploadFile = async (req, res, next) => {
     const fileData = {
       name: file.originalname,
       size: file.size,
-      url: file.path,
+      url: file.path, // Use file.url instead of file.path
       userId,
       folderId: folderIdToUse,
     };
@@ -42,7 +56,10 @@ export const uploadFile = async (req, res, next) => {
 
     res.json(uploadedFile);
   } catch (error) {
-    next(error);
+    console.error("Error uploading file:", error);
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
   }
 };
 
@@ -53,8 +70,16 @@ export const getFile = async (req, res, next) => {
         id: parseInt(req.params.id),
       },
     });
+
+    if (!file) {
+      return res.status(404).json({ message: "File not found" });
+    }
+
     res.json(file);
   } catch (error) {
-    next(error);
+    console.error("Error retrieving file:", error);
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
   }
 };

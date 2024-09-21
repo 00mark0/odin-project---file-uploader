@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import axios from "axios";
 
 const prisma = new PrismaClient();
 
@@ -63,6 +64,18 @@ export const deleteFile = async (req, res, next) => {
     const fileId = parseInt(req.params.id);
     await prisma.file.delete({ where: { id: fileId } });
     res.sendStatus(204);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getFilesInFolder = async (req, res, next) => {
+  try {
+    const folderId = parseInt(req.params.id);
+    const files = await prisma.file.findMany({
+      where: { folderId },
+    });
+    res.json(files);
   } catch (error) {
     next(error);
   }
