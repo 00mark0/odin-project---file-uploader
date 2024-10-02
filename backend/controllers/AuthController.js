@@ -21,7 +21,7 @@ export const register = async (req, res, next) => {
         isAdmin: isAdmin || false,
       },
     });
-    res.json(user);
+    res.status(201).json(user);
   } catch (error) {
     next(error);
   }

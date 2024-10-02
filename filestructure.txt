@@ -49,7 +49,6 @@
         |-- folders.js
         |-- user.js
     |-- server.js
-    |-- uploads
 |-- frontend
     |-- .eslintrc.cjs
     |-- .gitignore
@@ -60,7 +59,13 @@
     |-- src
         |-- App.css
         |-- App.jsx
+        |-- components
         |-- index.css
         |-- main.jsx
+        |-- pages
+            |-- Dashboard.jsx
+            |-- LoginPage.jsx
+            |-- Profile.jsx
+            |-- RegisterPage.jsx
     |-- tailwind.config.js
     |-- vite.config.js
