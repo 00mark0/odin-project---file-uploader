@@ -60,6 +60,7 @@
         |-- App.css
         |-- App.jsx
         |-- components
+            |-- Navbar.jsx
         |-- index.css
         |-- main.jsx
         |-- pages

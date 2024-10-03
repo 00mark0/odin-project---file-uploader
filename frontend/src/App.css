@@ -3,3 +3,22 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+body {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark {
+  background-color: #1a202c;
+  color: #a0aec0;
+}
+
+.navbar {
+  transition: background-color 0.3s, color 0.3s;
+  background-color: #edf2f7;
+}
+
+.navbar.dark {
+  background-color: #2d3748;
+  color: #a0aec0;
+}
