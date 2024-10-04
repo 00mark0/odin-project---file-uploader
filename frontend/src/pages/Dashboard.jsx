@@ -133,6 +133,16 @@ const Dashboard = ({ isDarkMode, toggleDarkMode }) => {
     }
   };
 
+  const handleDownloadFile = (fileUrl, fileName) => {
+    const downloadUrl = fileUrl.replace("/upload/", "/upload/fl_attachment/");
+    const link = document.createElement("a");
+    link.href = downloadUrl;
+    link.setAttribute("download", fileName); // Ensure the download attribute is set correctly
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className={isDarkMode ? "dark" : ""}>
       <Navbar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
@@ -176,6 +186,20 @@ const Dashboard = ({ isDarkMode, toggleDarkMode }) => {
                             <span className="text-gray-500">
                               {new Date(file.createdAt).toLocaleString()}
                             </span>
+                            <button
+                              onClick={() =>
+                                handleDownloadFile(file.url, file.name)
+                              }
+                              className="text-blue-500 hover:text-blue-700 transition duration-300"
+                            >
+                              Download
+                            </button>
+                            <button
+                              onClick={() => handleDeleteFile(file.id)}
+                              className="text-red-500 hover:text-red-700 transition duration-300"
+                            >
+                              Delete
+                            </button>
                           </div>
                         </li>
                       ))}
@@ -192,6 +216,12 @@ const Dashboard = ({ isDarkMode, toggleDarkMode }) => {
                       <span className="text-gray-500">
                         {new Date(file.createdAt).toLocaleString()}
                       </span>
+                      <button
+                        onClick={() => handleDownloadFile(file.url, file.name)}
+                        className="text-blue-500 hover:text-blue-700 transition duration-300"
+                      >
+                        Download
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -284,6 +314,14 @@ const Dashboard = ({ isDarkMode, toggleDarkMode }) => {
                               <span className="text-gray-500">
                                 {new Date(file.createdAt).toLocaleString()}
                               </span>
+                              <button
+                                onClick={() =>
+                                  handleDownloadFile(file.url, file.name)
+                                }
+                                className="text-blue-500 hover:text-blue-700 transition duration-300"
+                              >
+                                Download
+                              </button>
                               <button
                                 onClick={() => handleDeleteFile(file.id)}
                                 className="text-red-500 hover:text-red-700 transition duration-300"
