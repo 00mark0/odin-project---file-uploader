@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -42,12 +42,12 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
           Dashboard
         </h1>
         <div className="flex items-center space-x-4">
-          <a
-            href="#"
+          <Link
+            to="/profile"
             className="text-gray-700 dark:text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400"
           >
             {username}
-          </a>
+          </Link>
           <button
             onClick={toggleDarkMode}
             className="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400"

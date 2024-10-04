@@ -39,7 +39,7 @@ const RegisterPage = () => {
       );
       // Handle successful registration (e.g., redirect to login)
       if (response.status === 201) {
-        navigate("/login");
+        navigate("/");
       } else {
         setErrors({ form: "Registration failed. Please try again." });
       }

@@ -67,6 +67,7 @@
             |-- Dashboard.jsx
             |-- LoginPage.jsx
             |-- Profile.jsx
+            |-- ProfilePage.jsx
             |-- RegisterPage.jsx
     |-- tailwind.config.js
     |-- vite.config.js

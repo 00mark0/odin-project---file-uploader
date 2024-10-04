@@ -9,6 +9,11 @@ const Dashboard = ({ isDarkMode, toggleDarkMode }) => {
   const [newFolderName, setNewFolderName] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFolderId, setSelectedFolderId] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState({
+    folders: [],
+    files: [],
+  });
 
   useEffect(() => {
     fetchFolders();
@@ -110,11 +115,89 @@ const Dashboard = ({ isDarkMode, toggleDarkMode }) => {
     }
   };
 
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/api/user/search",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          params: { search: searchQuery },
+        }
+      );
+      setSearchResults(response.data);
+    } catch (error) {
+      console.error("Error searching files and folders:", error);
+    }
+  };
+
   return (
     <div className={isDarkMode ? "dark" : ""}>
       <Navbar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
       <div className="min-h-screen text-gray-900 dark:text-gray-100">
         <div className="container mx-auto px-4 py-8">
+          <form onSubmit={handleSearch} className="mb-8">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search files and folders"
+              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-indigo-400"
+            />
+            <button
+              type="submit"
+              className="mt-2 px-4 py-2 font-bold text-white bg-indigo-500 rounded hover:bg-indigo-700 transition duration-300"
+            >
+              Search
+            </button>
+          </form>
+          {searchResults.folders.length > 0 ||
+          searchResults.files.length > 0 ? (
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold mb-4 text-indigo-600 dark:text-indigo-400">
+                Search Results
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {searchResults.folders.map((folder) => (
+                  <div key={folder.id} className="p-6 rounded-lg shadow-md">
+                    <h3 className="text-lg font-semibold text-purple-700 dark:text-purple-400">
+                      {folder.name}
+                    </h3>
+                    <ul className="ml-4 mt-2">
+                      {folder.files.map((file) => (
+                        <li key={file.id} className="text-sm">
+                          <div className="flex justify-between items-center p-2 rounded-lg shadow-sm">
+                            <span className="text-gray-500">{file.name}</span>
+                            <span className="text-gray-500">
+                              {file.size} bytes
+                            </span>
+                            <span className="text-gray-500">
+                              {new Date(file.createdAt).toLocaleString()}
+                            </span>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+                {searchResults.files.map((file) => (
+                  <div key={file.id} className="p-6 rounded-lg shadow-md">
+                    <h3 className="text-lg font-semibold text-green-700 dark:text-green-400">
+                      {file.name}
+                    </h3>
+                    <div className="flex justify-between items-center p-2 rounded-lg shadow-sm">
+                      <span className="text-gray-500">{file.size} bytes</span>
+                      <span className="text-gray-500">
+                        {new Date(file.createdAt).toLocaleString()}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : null}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="p-6 rounded-lg shadow-md">
               <h2 className="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-400">
